@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>TRUNG THU GAME</title>
+</head>
+<body>
+    <div>
+        <button id="toggleMusic">Play music</button>
+    </div>
+    <audio id="music" src="Timeline1.mp3" loop></audio>
+<div style="display:flex; justify-content: space-between; height: 100%;">
+    <div style="margin: 0px 0px 0px 365px" class="chest" id="hop">
+        <div class="chest_keyholeBG">
+            <div class="chest_keyhole"></div>
+        </div>
+    </div>
+    <div style="height: 100vh; display: flex; align-items: center; width: 50%;">
+        <div style="margin: 0px 30px 80px 0px" class="gallery">
+            <div class="frame">
+                <img src="images/ruoc-den-trung-thu-1.jpg" alt="Image 1">
+                <button onclick="goToGameKhoBau()">Game tìm kho báu bị ẩn</button>
+            </div>
+            <div id="hint-container" style="background: linear-gradient(to right, #42ebeb, pink);" class="frame">
+                <div id="hint" class="heart"></div>
+            </div>
+            <div class="frame">
+                <img src="images/ruoc-den-trung-thu-1.jpg" alt="Image 3">
+                <button onclick="goToGameBall1()">Bắt Vịt</button>
+            </div>
+            <div class="frame">
+                <img src="images/ruoc-den-trung-thu-1.jpg" alt="Image 4">
+                <button onclick="goToGameDuck()">Vịt bầu run</button>
+            </div>
+        </div>
+    </div>
+    <div id="popup-container">
+        <div id="popup">
+            <p id="popup-text">Dòng thứ ... từ dưới lên </p>
+        </div>
+    </div>
+    <!-- Input Popup -->
+    <div id="inputPopup" class="popup" style="display: none;">
+        <div class="popup-container">
+            <div class="popup-content">
+                <input type="text" id="passwordInput" placeholder="Nhập mật khẩu để mở rương kho báu :33">
+                <button onclick="checkPassword()">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Popup -->
+    <div id="successPopup" class="popup" style="display: none;">
+        <div class="popup-container" style="position: relative; background-color: rgb(233, 233, 140); padding: 20px; border-radius: 15px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);">
+            <div class="popup-content" style="text-align: center;">
+                <p>Yây!!! chúc mừng Thảo đã tìm được mật khẩu nha.</p>
+                <p>Chúc Thảo trung thu zui zẻ :3333333 hihi</p>
+                <p>Bảnh không biết tặng quà gì, nên là chỉ có tấm lòng thôi</p>
+                <p>Ở dưới làm gì làm cũng để ý sức khỏe của mình</p>
+                <p>Không còn thường xuyên nhưng lâu lâu mình sẽ vào thăm bạn</p>
+                <p>Có thể là những lúc bạn mệt mỏi nhất không có ai ở đó giúp đỡ bạn</p>
+                <p>Nhưng hỡi thiếu nữ bên kia đầu dây ơi, bạn đã đi hết một năm chặng đường rồi</p>
+                <p>Bạn kiên cường lắm, mạnh mẽ lắm nên không sao đâu</p>
+                <p>Cố lên nha !!!</p>
+                <div id="balloonContainer"></div>
+                <button onclick="closeSuccessPopup()" style="background-color: rgb(114, 114, 212); color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer;">Đóng</button>
+            </div>
+        </div>
+    </div>    
+</div>
+<script>
+    // music
+     // Function to toggle music play/pause
+     function toggleMusic() {
+            const audio = document.getElementById('music');
+            const button = document.getElementById('toggleMusic');
+
+            if (audio.paused) {
+                audio.play();
+                button.textContent = 'Pause music';
+                localStorage.setItem('musicPlaying', 'true');
+            } else {
+                audio.pause();
+                button.textContent = 'Play music';
+                localStorage.setItem('musicPlaying', 'false');
+            }
+        }
+
+        // Check and restore music state on page load
+        function restoreMusicState() {
+            const audio = document.getElementById('music');
+            const button = document.getElementById('toggleMusic');
+            const musicPlaying = localStorage.getItem('musicPlaying');
+
+            if (musicPlaying === 'true') {
+                audio.play();
+                button.textContent = 'Pause music';
+            } else {
+                audio.pause();
+                button.textContent = 'Play music';
+            }
+        }
+
+        // Attach event listener to button
+        document.getElementById('toggleMusic').addEventListener('click', toggleMusic);
+
+        // Restore music state when page loads
+        window.addEventListener('load', restoreMusicState);
+    
+
+    const popupText = document.getElementById('popup-text');
+    const ruleBtn = document.getElementById('hint');
+    const popupContainer = document.getElementById('popup-container');
+    function goToGameKhoBau() {
+      window.location.href="part1.html"
+    }
+
+    function goToGameBall1() {
+      window.location.href="ball.html"
+    }
+
+    function goToGameDuck() {
+      window.location.href="TRex.html"
+    }
+
+    // Add an event listener to the popup container to close it when clicked outside
+popupContainer.addEventListener('click', (e) => {
+  if (e.target === popupContainer) {
+    // Hide the popup container
+    popupContainer.style.display = 'none';
+  }
+});
+
+    ruleBtn.addEventListener('click', () => {
+  // Add additional text or attributes
+  popupText.innerHTML = "Chào mừng Thu Thảo đến với: 'Game trung thu phiên bản được chat GPT support.<br> Ở đây Bảnh có 3 trò chơi, mỗi trò Thu Thảo vượt qua sẽ nhận được một gợi ý.<br> Hãy dựa vào những gợi ý đó và nhập mật khẩu cho hộp kho báu ở mặt trăng nha.<br>Chúc Thu Thẻo thành công sớm ~~~ yây'";
+
+  // Show the popup container
+  popupContainer.style.display = 'block';
+});
+
+document.getElementById('hop').addEventListener('click', function() {
+    document.getElementById('inputPopup').style.display = 'flex';
+});
+
+function checkPassword() {
+    var password = document.getElementById('passwordInput').value;
+    if (password === '278') {
+        document.getElementById('inputPopup').style.display = 'none';
+        showSuccessPopup();
+    } else {
+        alert('Mật khẩu sai mất tiêu rồi, bạn Thảo thử lại xem. Chơi game để nhận thêm gợi ý ó ');
+    }
+}
+
+function showSuccessPopup() {
+    var successPopup = document.getElementById('successPopup');
+    var balloonContainer = document.getElementById('balloonContainer');
+
+    // Clear the previous balloons
+    balloonContainer.innerHTML = '';
+
+    // Show the popup
+    successPopup.style.display = 'flex';
+
+    // Create balloons
+    for (var i = 0; i < 10; i++) {
+        var balloon = document.createElement('div');
+        balloon.className = 'balloon';
+        
+        // Random horizontal position, but ensure there's enough space between balloons
+        let leftPosition = i * 10 + Math.random() ; // Adjust the gap between balloons
+        balloon.style.left = leftPosition + '%'; 
+        
+        // Random delay to make balloons appear one by one
+        let delay = Math.random() * 1 + 's';
+        balloon.style.animationDelay = delay; // Set delay for each balloon
+
+        balloonContainer.appendChild(balloon);
+        
+        // Remove balloon after its animation is complete (6s as per the animation duration)
+        setTimeout(function() {
+            balloon.remove();
+        }, 6000);
+    }
+}
+
+function closeSuccessPopup() {
+    document.getElementById('successPopup').style.display = 'none';
+
+    // Remove balloons
+    var balloonContainer = document.getElementById('balloonContainer');
+    balloonContainer.innerHTML = '';
+}
+
+// Hide popup when clicking outside
+window.addEventListener('click', function(event) {
+    if (event.target === inputPopup) {
+        inputPopup.style.display = 'none';
+    }
+    if (event.target === successPopup) {
+        successPopup.style.display = 'none';
+    }
+});
+
+</script>
+</body>
+
+</html>
